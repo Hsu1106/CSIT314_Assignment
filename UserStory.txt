@@ -24,3 +24,30 @@ Customer:
 
 
 
+
+
+
+
+
+
+
+
+
+As a Customer , I want to login to my account, so i can access to my account
+As a Customer , I want to delete IDP in favorites, so i can remove th file i don't like anymore
+As a Customer , I want to search IDP, so i can find a case that fit my favor
+As a Customer , I want to view IDP, so i can know the detail of the IDP
+As a Customer , I want to add IDP to favorites , so i can easily found the one match my favor
+
+
+
+
+
+
+
+
+
+
+
+
+
