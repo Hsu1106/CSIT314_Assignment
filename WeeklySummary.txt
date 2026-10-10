@@ -1,0 +1,2 @@
+Week 1:
+We discussed what development software to use : Javascript and SQLite.

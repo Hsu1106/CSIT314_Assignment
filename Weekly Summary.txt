@@ -1,2 +1,0 @@
-Week1:
-We discuss waht the prosgramming language is used : Python and SQLlite
