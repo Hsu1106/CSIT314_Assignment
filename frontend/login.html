@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <label>Username <input name="username" required></label>
+      <label>Password <input name="password" type="password" required></label>
+      <button type="submit">Login</button>
+    </form>
+    <p id="message"></p>
+  </main>
+  <script src="js/boundary/LoginPage.js"></script>
+  <script>new LoginPage().init();</script>
+</body>
+</html>

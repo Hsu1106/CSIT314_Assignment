@@ -1,0 +1,7 @@
+body { font-family: system-ui, sans-serif; background: #f4f4f6; display: flex; justify-content: center; padding: 48px 16px; }
+.card { background: #fff; padding: 24px 32px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+label { display: block; margin: 12px 0; }
+input { display: block; width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+button { margin-top: 8px; padding: 8px 16px; }
+#message.error { color: #b00020; }
+#message.success { color: #1b7f3b; }
