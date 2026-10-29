@@ -1,16 +1,21 @@
 // Builds the Express app (separate from server.js so it can be tested).
 const express = require('express');
 const path = require('node:path');
+const { SessionManager } = require('./utils/session');
+const { attachAccount } = require('./middleware/auth');
 const authRoutes = require('./routes/authRoutes');
+const idpRoutes = require('./routes/idpRoutes');
 
-function createApp(db) {
+function createApp(db, { sessions = new SessionManager() } = {}) {
   const app = express();
   app.use(express.json());
+  app.use(attachAccount(sessions));
   app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-  app.use('/api/auth', authRoutes(db));
+  app.use('/api/auth', authRoutes(db, sessions));
+  app.use('/api/idps', idpRoutes(db));
 
-  app.get('/', (req, res) => res.redirect('/login.html'));
+  app.use('/api', (req, res) => res.status(404).json({ success: false, message: 'Not found' }));
   return app;
 }
 

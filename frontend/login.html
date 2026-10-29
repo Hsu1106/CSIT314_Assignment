@@ -3,20 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Log in · InteriorMatch</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <main class="card">
-    <h1>Login</h1>
-    <form id="loginForm">
-      <label>Username <input name="username" required></label>
-      <label>Password <input name="password" type="password" required></label>
-      <button type="submit">Login</button>
-    </form>
-    <p id="message"></p>
+  <nav id="nav"></nav>
+  <main class="narrow">
+    <div class="card">
+      <h1>Log in</h1>
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <p><button class="btn" type="submit">Log in</button></p>
+      </form>
+      <p id="message"></p>
+      <p class="muted" style="font-size:.85rem">Demo accounts (password <code>password123</code>):
+        designer1, customer1, manager1, admin</p>
+    </div>
   </main>
-  <script src="js/boundary/LoginPage.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/boundary/LoginPage.js"></script>
   <script>new LoginPage().init();</script>
-</body>
-</html>
+</body></html>

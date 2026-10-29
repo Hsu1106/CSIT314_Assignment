@@ -25,6 +25,17 @@ class UserAccount {
       .get(username);
   }
 
+  findById(userId) {
+    const row = this.db
+      .prepare(
+        `SELECT a.id, a.username, a.email, a.is_active, p.name AS profile
+           FROM user_account a JOIN user_profile p ON p.id = a.profile_id
+          WHERE a.id = ?`
+      )
+      .get(userId);
+    return row ?? null;
+  }
+
   /**
    * Returns the logged-in account (without password) or null.
    */
@@ -38,6 +49,14 @@ class UserAccount {
       email: row.email,
       profile: row.profile_name,
     };
+  }
+
+  /** #12 Logout: remember when the user last logged out. */
+  recordLogout(userId) {
+    const result = this.db
+      .prepare("UPDATE user_account SET last_logout_at = datetime('now') WHERE id = ?")
+      .run(userId);
+    return result.changes === 1;
   }
 }
 

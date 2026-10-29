@@ -1,8 +1,13 @@
-// BOUNDARY: the login page the user interacts with.
+// BOUNDARY: the login page the user interacts with. (#11)
 class LoginPage {
-  init() {
+  async init() {
+    const account = await Nav.render();
+    if (account) return this.redirectToDashboard(account.profile);
     this.form = document.getElementById('loginForm');
     this.message = document.getElementById('message');
+    if (new URLSearchParams(location.search).has('loggedOut')) {
+      this.show('success', 'You have logged out.');
+    }
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.onSubmit();
@@ -11,26 +16,32 @@ class LoginPage {
 
   async onSubmit() {
     const data = new FormData(this.form);
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: data.get('username'), password: data.get('password') }),
+    const result = await Api.post('/api/auth/login', {
+      username: data.get('username'),
+      password: data.get('password'),
     });
-    const result = await response.json();
     if (result.success) {
       this.displaySuccess(result.account);
+      this.redirectToDashboard(result.account.profile);
     } else {
       this.displayError(result.message);
     }
   }
 
   displaySuccess(account) {
-    this.message.className = 'success';
-    this.message.textContent = `Welcome, ${account.username} (${account.profile})`;
+    this.show('success', `Welcome, ${account.username} (${account.profile})`);
   }
 
   displayError(message) {
-    this.message.className = 'error';
-    this.message.textContent = message;
+    this.show('error', message || 'Login failed');
+  }
+
+  redirectToDashboard(profile) {
+    window.location.href = '/dashboard.html';
+  }
+
+  show(type, text) {
+    this.message.className = `message ${type}`;
+    this.message.textContent = text;
   }
 }

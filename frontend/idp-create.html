@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create IDP · InteriorMatch</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav id="nav"></nav>
+  <main class="form-page">
+    <p><a href="/dashboard.html">← Back to dashboard</a></p>
+    <div class="card">
+      <h1>Create IDP</h1>
+      <p class="muted">Add an Interior Design Project to your portfolio.</p>
+      <form id="idpForm">
+        <label for="title">Title</label>
+        <input id="title" name="title" maxlength="120" required placeholder="e.g. Japandi 4-room HDB in Punggol">
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required placeholder="Describe the project, the rooms you worked on and the materials used"></textarea>
+
+        <div class="row">
+          <div><label for="budget">Budget (S$) <span class="opt">optional</span></label><input id="budget" name="budget" type="number" min="0" step="1000"></div>
+          <div><label for="houseSize">House size (sq ft) <span class="opt">optional</span></label><input id="houseSize" name="houseSize" type="number" min="0"></div>
+          <div><label for="duration">Duration <span class="opt">optional</span></label><input id="duration" name="duration" placeholder="e.g. 12 weeks"></div>
+          <div><label for="status">Status</label><select id="status" name="status"><option value="current">Current</option><option value="past">Past</option></select></div>
+        </div>
+
+        <label for="styleOptions">Style <span class="opt">(exactly one)</span></label>
+        <select id="styleOptions" name="style" required></select>
+
+        <label>Room tags <span class="opt">(choose any)</span></label>
+        <div id="roomOptions" class="tag-group"></div>
+
+        <p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+          <button class="btn" type="submit">Create IDP</button>
+          <button class="btn secondary" type="button" id="suggestBtn" disabled title="Coming in #23">Suggest tags (#23, coming soon)</button>
+        </p>
+      </form>
+      <p id="message"></p>
+    </div>
+  </main>
+  <script src="/js/common.js"></script>
+  <script src="/js/boundary/IDPFormPage.js"></script>
+  <script>new IDPFormPage().init();</script>
+</body></html>
