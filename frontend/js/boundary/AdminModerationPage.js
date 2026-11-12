@@ -42,7 +42,7 @@ class AdminModerationPage {
     if (flag.status === 'suspended') {
       actions.append(this.button('Reactivate', 'secondary', () => this.reactivate(flag)));
     }
-    if (isIDP && flag.status !== 'removed' && flag.designer_id) {
+    if (isIDP && flag.status !== 'removed' && flag.status !== 'accepted' && flag.designer_id) {
       actions.append(this.button('Suspend designer + all IDPs', 'danger', () => this.suspendDesigner(flag)));
     }
     if (actions.childElementCount) card.append(actions);

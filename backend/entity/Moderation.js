@@ -1,5 +1,10 @@
+const IDP = require('./IDP');
+
 class Moderation {
-  constructor(db) { this.db = db; }
+  constructor(db, idp = new IDP(db)) {
+    this.db = db;
+    this.idp = idp;
+  }
 
   flag(type, id, reason, subjectName = null) {
     this.db.prepare(`INSERT INTO moderation_flag(subject_type,subject_id,reason,subject_name)
@@ -77,10 +82,7 @@ class Moderation {
       }
     } else {
       if (action === 'suspend') this.db.prepare('UPDATE idp SET is_suspended=1 WHERE id=?').run(flag.subject_id);
-      if (action === 'remove') {
-        this.db.prepare('UPDATE contact_request SET idp_id=NULL WHERE idp_id=?').run(flag.subject_id);
-        this.db.prepare('DELETE FROM idp WHERE id=?').run(flag.subject_id);
-      }
+      if (action === 'remove') this.idp.deleteIDP(flag.subject_id);
     }
     this.db.prepare(`UPDATE moderation_flag SET status=?, reviewed_at=datetime('now') WHERE id=?`)
       .run(action === 'remove' ? 'removed' : 'suspended', flag.id);

@@ -15,8 +15,8 @@ function adminRoutes(db) {
   Notification.useDatabase(db);
 
   const licenseController = new VerifyLicenseController(userAccount);
-  const moderation = new Moderation(db);
   const idp = new IDP(db);
+  const moderation = new Moderation(db, idp);
   const accountController = new ManageUserAccountsController(userAccount, moderation);
   const tagController = new ManageIDPTagsController(db);
   const requirePlatformManager = (req, res, next) => {

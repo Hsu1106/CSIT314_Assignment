@@ -187,7 +187,7 @@ a.idp-card:hover { border-color: var(--accent); }
 .account-actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .account-action { padding: 5px 10px; font-size: .82rem; }
 .account-status { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: .78rem; background: var(--accent-soft); color: var(--accent-dark); }
-.account-status.suspended { background: #fdecea; color: var(--danger); }
+.account-status.suspended { color: var(--danger); background:#fee4e2; font-weight:700; padding:4px 9px; border-radius:20px; }
 .account-status.locked { background: #fff2d8; color: #805500; }
 .current-admin-row { background: var(--accent-soft); outline: 1px solid var(--accent); outline-offset: -1px; }
 .current-admin-label { display: block; width: fit-content; margin-top: 3px; color: var(--accent-dark); font-size: .72rem; font-weight: 700; }
@@ -227,4 +227,3 @@ a.idp-card:hover { border-color: var(--accent); }
 .moderation-kind { color:#667085; font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; }
 .suspension-notice { color:#b42318; font-weight:800; letter-spacing:.04em; }
 .btn.warning { background:#9a6700; color:#fff; }
-.account-status.suspended { color:#b42318; background:#fee4e2; font-weight:700; padding:4px 9px; border-radius:20px; }

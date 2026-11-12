@@ -65,11 +65,6 @@ function createDatabase(file = DEFAULT_DB_FILE) {
   }
   const idpCols = db.prepare('PRAGMA table_info(idp)').all().map((column) => column.name);
   if (!idpCols.includes('is_suspended')) db.exec('ALTER TABLE idp ADD COLUMN is_suspended INTEGER NOT NULL DEFAULT 0');
-  db.exec(`CREATE TABLE IF NOT EXISTS moderation_flag (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, subject_type TEXT NOT NULL CHECK(subject_type IN ('customer','idp')),
-    subject_id INTEGER NOT NULL, reason TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending'
-    CHECK(status IN ('pending','accepted','suspended','removed')),
-    created_at TEXT NOT NULL DEFAULT (datetime('now')), reviewed_at TEXT, UNIQUE(subject_type,subject_id))`);
   const moderationFlagCols = db.prepare('PRAGMA table_info(moderation_flag)').all().map((column) => column.name);
   if (!moderationFlagCols.includes('subject_name')) {
     db.exec('ALTER TABLE moderation_flag ADD COLUMN subject_name TEXT');

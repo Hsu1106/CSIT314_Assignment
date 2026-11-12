@@ -53,13 +53,6 @@ function idpRoutes(db, { aiService = new AIService() } = {}) {
     res.status(result.success ? 200 : 400).json(result);
   });
 
-  // My IDPs (designer's own list). Must be before '/:id' so "mine" is not read as an id.
-  router.get('/mine', (req, res) => {
-    const user = userAccount.findById(req.get('X-User-Id'));
-    const result = viewMyIDPsController.getMyIDPs(user);
-    res.status(result.success ? 200 : 403).json(result);
-  });
-
   // View one IDP
   router.get('/:id', (req, res) => {
     const user = userAccount.findById(req.get('X-User-Id'));
