@@ -1,4 +1,4 @@
-class AdminIDPTagsPage {
+class PlatIDPTagsPage {
   async init() {
     this.account = Nav.render();
     if (!this.account) return LogoutAction.redirectToLoginPage();
