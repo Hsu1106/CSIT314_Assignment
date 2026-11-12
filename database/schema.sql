@@ -153,7 +153,7 @@ ON consultation_request(customer_id);
 CREATE TABLE IF NOT EXISTS moderation_flag (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
  subject_type TEXT NOT NULL CHECK(subject_type IN ('customer','idp')),
- subject_id INTEGER NOT NULL, reason TEXT NOT NULL,
+ subject_id INTEGER NOT NULL, reason TEXT NOT NULL, subject_name TEXT,
  status TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending','accepted','suspended','removed')),
  created_at TEXT NOT NULL DEFAULT (datetime('now')), reviewed_at TEXT,
  UNIQUE(subject_type,subject_id)

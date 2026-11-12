@@ -1,11 +1,12 @@
 class Moderation {
   constructor(db) { this.db = db; }
 
-  flag(type, id, reason) {
-    this.db.prepare(`INSERT INTO moderation_flag(subject_type,subject_id,reason)
-      VALUES(?,?,?) ON CONFLICT(subject_type,subject_id) DO UPDATE SET
-      reason=excluded.reason, status=CASE WHEN moderation_flag.status IN ('accepted','removed') THEN 'pending' ELSE moderation_flag.status END,
-      created_at=datetime('now')`).run(type, Number(id), reason);
+  flag(type, id, reason, subjectName = null) {
+    this.db.prepare(`INSERT INTO moderation_flag(subject_type,subject_id,reason,subject_name)
+      VALUES(?,?,?,?) ON CONFLICT(subject_type,subject_id) DO UPDATE SET
+      reason=excluded.reason, subject_name=COALESCE(moderation_flag.subject_name, excluded.subject_name),
+      status=CASE WHEN moderation_flag.status IN ('accepted','removed') THEN 'pending' ELSE moderation_flag.status END,
+      created_at=datetime('now')`).run(type, Number(id), reason, subjectName);
   }
 
   clearCustomerFlag(customerId) {
@@ -47,11 +48,11 @@ class Moderation {
     const duplicate = this.db.prepare(`SELECT id FROM idp WHERE designer_id=? AND id<>?
       AND lower(trim(title))=lower(trim(?)) LIMIT 1`).get(idp.designerId, idp.id, idp.title);
     if (duplicate) reasons.push('Duplicates another listing title from this designer');
-    if (reasons.length) this.flag('idp', idp.id, reasons.join('; '));
+    if (reasons.length) this.flag('idp', idp.id, reasons.join('; '), idp.title);
   }
 
   list() {
-    return this.db.prepare(`SELECT f.*, CASE WHEN f.subject_type='customer' THEN a.username ELSE i.title END AS subject_name,
+    return this.db.prepare(`SELECT f.*, CASE WHEN f.subject_type='customer' THEN a.username ELSE COALESCE(f.subject_name, i.title) END AS subject_name,
       CASE WHEN f.subject_type='customer' THEN a.email ELSE d.username END AS detail,
       CASE WHEN f.subject_type='customer' THEN a.is_active ELSE NOT i.is_suspended END AS is_active,
       CASE WHEN f.subject_type='customer' THEN a.id ELSE i.designer_id END AS designer_id
