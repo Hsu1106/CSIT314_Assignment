@@ -24,7 +24,7 @@ const MENU = {
     { title: 'Connected customers', text: 'Customers who contacted designers (#25)', href: '/metrics.html', ready: true },
     { title: 'IDP interaction rate', text: 'Views and customer interactions for each IDP', href: '/idp-interaction-rate.html', ready: true },
     { title: 'Reports', text: 'Daily, weekly, monthly and yearly platform activity reports (#38, #39, #40)', href: '/reports.html', ready: true },
-    { title: 'IDP categories', text: 'Add or delete multiple styles and room types', href: '/plat-idp-tags.html', ready: true },
+    { title: 'IDP tags', text: 'Add or delete multiple styles and room types', href: '/plat-idp-tags.html', ready: true },
   ],
   'User Admin': [
     { title: 'License verification', text: 'Review Interior Designer license applications', href: '/admin-verifications.html', ready: true },
